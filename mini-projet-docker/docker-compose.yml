@@ -1,0 +1,12 @@
+version: '1.0'
+
+services:
+  paymybuddy-backend:
+    image: spring-pmb
+  paymybuddy-db:
+    image: mysql-pmb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+volumes:
+secrets:
