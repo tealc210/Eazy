@@ -3,7 +3,7 @@
 docker build --target db -t db-pmb .
 
 ## Launch a database container :
-docker run --name db-pmb db-pmb
+docker run -e MYSQL_ROOT_PASSWORD=<YOUR_ROOT_PASSWORD_HERE> --name db-pmb db-pmb
 
 ## Build your app image :
 docker build --target packager --build-arg db_pwd=<YOUR_DB_PASSWORD_HERE> --build-arg db_instance=<YOUR_DB-PMB_CONTAINER_IP> -t app-pmb .
