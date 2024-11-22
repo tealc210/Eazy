@@ -1,15 +1,7 @@
 FROM mysql:8.0.40-debian AS db
 
-ARG root_password
-ARG db_user
-ARG db_pwd
-
-ENV MYSQL_ROOT_PASSWORD ${root_password}
-ENV MYSQL_USER ${db_user}
-ENV MYSQL_PASSWORD ${db_pwd}
-ENV MYSQL_DATABASE "db_paymybuddy"
-
 LABEL maintener="DAG"
+
 ADD ./initdb/create.sql /docker-entrypoint-initdb.d/
 EXPOSE 3306/tcp
 

@@ -1,6 +1,6 @@
 # BUILD YOUR IMAGES
 ## Build your database image :
-docker build --target db --build-arg root_password=<YOUR_ROOT_PASSWORD_HERE> --build-arg db_pwd=<YOUR_DB_PASSWORD_HERE> -t db-pmb .
+docker build --target db -t db-pmb .
 
 ## Launch a database container :
 docker run --name db-pmb db-pmb
