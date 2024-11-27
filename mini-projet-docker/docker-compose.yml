@@ -6,10 +6,10 @@ services:
      networks:
        - back
      environment:
-       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_pwd
        MYSQL_USER: pmb-admin
        MYSQL_DATABASE: db_paymybuddy
-       MYSQL_PASSWORD_FILE: /run/secrets/db_password
+       MYSQL_PASSWORD_FILE: /run/secrets/pmb_pwd
      secrets:
        - db_root_pwd
        - pmb_pwd
@@ -25,9 +25,8 @@ services:
        - back
      environment:
        MYSQL_INSTANCE: paymybuddy-db
-       #WORDPRESS_DB_HOST: db:3306
        APP_DB_USER: pmb-admin
-       DB_PASSWORD_FILE: /run/secrets/db_password
+       DB_PASSWORD_FILE: /run/secrets/pmb_pwd
      secrets:
        - pmb_pwd
 

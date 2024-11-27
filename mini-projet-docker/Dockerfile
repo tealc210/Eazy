@@ -30,7 +30,7 @@ LABEL maintainer="DAG"
 
 RUN mkdir -p /config
 
-COPY startup/application.properties export.sh /config/
+COPY startup/application.properties startup/export.sh /config/
 COPY startup/paymybuddy.jar /srv/
 EXPOSE 8080/tcp
 CMD [ "/config/export.sh ]
