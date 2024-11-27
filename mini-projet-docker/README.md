@@ -1,15 +1,9 @@
 # BUILD YOUR IMAGES
 ## Build your database image :
-> **$>** docker build --target db --build-arg root_password=**<YOUR_ROOT_PASSWORD_HERE>** --build-arg db_pwd=**<YOUR_DB_PASSWORD_HERE>** -t db-pmb .
-
-## Launch a database container :
-> **$>** docker run --name db-pmb db-pmb
+> **$>** docker build --target db -t db-pmb .
 
 ## Build your app image :
-> **$>** docker build --target packager --build-arg db_pwd=**<YOUR_DB_PASSWORD_HERE>** --build-arg db_instance=**<YOUR_DB-PMB_CONTAINER_IP>** -t app-pmb .
-
-## Remove the database container:
-> **$>** docker stop db-pmb && docker rm db-pmb
+> **$>** docker build --target app -t app-pmb .
 
 ## Upload your images to your repository
 :warning: **replace "localhost:5000" by your registry URL if needed**
@@ -20,10 +14,11 @@
 **\$>** docker push localhost:5000/pmb-app:latest
 
 ## Deploy your PayMyBuddy instance :
-Fill in the db_root_pwd.txt and pmb_pwd.txt with the passwords used previously.
+Fill in the startup/db_root_pwd.txt and startup/pmb_pwd.txt with the passwords you will use for managing the DBMS and the app database.
 > **$>**  docker compose -f docker-compose.yml up -d
 
 # Enjoy your application
+Take a look at http://<YOUR_DEPLOYMENT_IP>:8008
 ### Here is a whole new world
 ![Home](images/pmb_home.png)
 ### You can connect to your buddies...
