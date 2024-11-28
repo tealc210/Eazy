@@ -18,6 +18,7 @@ services:
   paymybuddy-backend:
     depends_on:
       - paymybuddy-db
+    restart: on-failure
     image: localhost:5000/app-pmb:latest
     ports:
       - "8008:8080"
