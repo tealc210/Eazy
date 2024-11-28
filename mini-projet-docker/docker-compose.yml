@@ -1,44 +1,46 @@
 services:
-   paymybuddy-db:
-     image: db-pmb:latest
-     volumes:
-       - db_data:/var/lib/mysql
-     networks:
-       - back
-     environment:
-       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_pwd
-       MYSQL_USER: pmb-admin
-       MYSQL_DATABASE: db_paymybuddy
-       MYSQL_PASSWORD_FILE: /run/secrets/pmb_pwd
-     secrets:
-       - db_root_pwd
-       - pmb_pwd
+  paymybuddy-db:
+    image: localhost:5000/db-pmb:latest
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./initdb/create.sql:/docker-entrypoint-initdb.d/create.sql
+    networks:
+      - back
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_pwd
+      MYSQL_USER: pmbadmin
+      MYSQL_DATABASE: db_paymybuddy
+      MYSQL_PASSWORD_FILE: /run/secrets/pmb_pwd
+    secrets:
+      - db_root_pwd
+      - pmb_pwd
 
-   paymybuddy-backend:
-     depends_on:
-       - paymybuddy-db
-     image: app-pmb:latest
-     ports:
-       - "8008:80"
-     networks:
-       - front
-       - back
-     environment:
-       MYSQL_INSTANCE: paymybuddy-db
-       APP_DB_USER: pmb-admin
-       DB_PASSWORD_FILE: /run/secrets/pmb_pwd
-     secrets:
-       - pmb_pwd
+  paymybuddy-backend:
+    depends_on:
+      - paymybuddy-db
+    image: localhost:5000/app-pmb:latest
+    ports:
+      - "8008:8080"
+    networks:
+      - front
+      - back
+    env_file: "./startup/.env"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://paymybuddy-db:3306/db_paymybuddy
+      SPRING_DATASOURCE_USERNAME: pmbadmin
+      SPRING_CONFIG_LOCATION: file:/srv/application.properties
+    secrets:
+      - pmb_pwd
 
 networks:
-   front:
-   back:
+  front:
+  back:
 
 secrets:
-   pmb_pwd:
-     file: startup/pmb_pwd.txt
-   db_root_pwd:
-     file: startup/db_root_pwd.txt
+  pmb_pwd:
+    file: ./startup/pmb_pwd.txt
+  db_root_pwd:
+    file: ./startup/db_root_pwd.txt
 
 volumes:
-    db_data:
+  db_data:

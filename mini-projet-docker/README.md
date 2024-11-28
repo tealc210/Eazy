@@ -15,6 +15,7 @@
 
 ## Deploy your PayMyBuddy instance :
 Fill in the startup/db_root_pwd.txt and startup/pmb_pwd.txt with the passwords you will use for managing the DBMS and the app database.
+Add the password contained in startup/pmb_pwd.txt in the startup/.env file.
 > **$>**  docker compose -f docker-compose.yml up -d
 
 # Enjoy your application
